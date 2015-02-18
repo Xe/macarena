@@ -1,8 +1,7 @@
 # macarena
 A relay bot for IRC channels spanning two networks
 
----
-
+```
 Dale a tu cuerpo alegria Macarena
 Que tu cuerpo es pa' darle alegria y cosa buena
 Dale a tu cuerpo alegria, Macarena
@@ -87,3 +86,4 @@ Dale a tu cuerpo alegria Macarena
 Que tu cuerpo es pa' darle alegria y cosa buena
 Dale a tu cuerpo alegria, Macarena
 Hey Macarena
+```

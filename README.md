@@ -1,5 +1,19 @@
-# macarena
-A relay bot for IRC channels spanning two networks
+macarena
+========
+
+A relay bot for IRC channels spanning many networks.
+
+Usage
+-----
+
+```console
+$ go get github.com/Xe/macarena
+$ cp $GOPATH/src/github.com/Xe/macarena/config/example.conf.json somewhere.json
+$ macarena -conf somewhere.json
+```
+
+Please be sure to edit your config. See 
+[this](http://godoc.org/github.com/Xe/macarena/config) for help.
 
 ```
 Dale a tu cuerpo alegria Macarena

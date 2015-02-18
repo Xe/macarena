@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"hash/fnv"
 	"log"
 
 	"github.com/Xe/macarena/bot"
@@ -15,10 +16,12 @@ var (
 
 	parent chan *irc.Event
 	bots   []*bot.Bot
+	colors []int
 )
 
 func init() {
 	parent = make(chan *irc.Event)
+	colors = []int{2, 3, 4, 5, 9, 10, 11, 12}
 }
 
 func main() {
@@ -40,6 +43,16 @@ func main() {
 	}
 }
 
+func hash(nick string) string {
+	myHash := fnv.New32()
+	myHash.Write([]byte(nick))
+
+	sum := myHash.Sum32()
+	sum = sum % uint32(len(colors))
+
+	return fmt.Sprintf("\x03%d%s\x03", colors[sum], nick)
+}
+
 func sendToAllButOne(e *irc.Event) {
 	for _, mybot := range bots {
 		if e.Connection == mybot.IrcObj {
@@ -50,7 +63,7 @@ func sendToAllButOne(e *irc.Event) {
 			Code: "PRIVMSG",
 			Arguments: []string{
 				e.Arguments[0],
-				fmt.Sprintf("<-%s> %s", e.Nick, e.Arguments[1]),
+				fmt.Sprintf("<-%s> %s", hash(e.Nick), e.Arguments[1]),
 			},
 		}
 	}

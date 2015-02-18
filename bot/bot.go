@@ -58,8 +58,11 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 			bot.IrcObj.Join(channel)
 		}
 
-		bot.IrcObj.AddCallback("PRIVMSG", func(e *irc.Event) {
-			bot.parent <- e
+		bot.callbackid = bot.IrcObj.AddCallback("PRIVMSG", func(e *irc.Event) {
+			// Callback hell much but concurrency is nice
+			go func() {
+				bot.parent <- e
+			}()
 		})
 	}()
 

@@ -13,11 +13,11 @@ var (
 	cfgFname = flag.String("conf", "./config.json", "config file to use")
 
 	parent chan *irc.Event
-	bots   []bot.Bot
+	bots   []*bot.Bot
 )
 
 func init() {
-	parent = make(chan bot.Event)
+	parent = make(chan *irc.Event)
 }
 
 func main() {
@@ -28,5 +28,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_ = cfg
+	for _, net := range cfg.Networks {
+		mybot := bot.New(cfg.MyInfo, net, cfg.Channels, parent)
+
+		bots = append(bots, mybot)
+	}
 }

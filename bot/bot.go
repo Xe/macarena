@@ -26,7 +26,7 @@ type Bot struct {
 // New makes a new Bot.
 //
 // TODO: make this less fucko.
-func New(info config.Info, net config.Network, channels []string, parent chan *irc.Event) (bot Bot, err error) {
+func New(info config.Info, net config.Network, channels []string, parent chan *irc.Event) (bot *Bot) {
 	bot.IrcObj = irc.IRC(info.Nick, info.User)
 
 	bot.Info = info

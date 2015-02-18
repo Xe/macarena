@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 
 	"github.com/Xe/macarena/bot"
@@ -45,6 +46,12 @@ func sendToAllButOne(e *irc.Event) {
 			continue
 		}
 
-		mybot.Signal <- e
+		mybot.Signal <- &irc.Event{
+			Code: "PRIVMSG",
+			Arguments: []string{
+				e.Arguments[0],
+				fmt.Sprintf("<-%s> %s", e.Nick, e.Arguments[1]),
+			},
+		}
 	}
 }

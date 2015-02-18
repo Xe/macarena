@@ -12,8 +12,8 @@ import (
 
 // Bot is the wrapper around ircobj.
 type Bot struct {
-	Info     config.Info
-	Network  config.Network
+	Info     *config.Info
+	Network  *config.Network
 	Channels []string
 	Signal   chan *irc.Event
 	IrcObj   *irc.Connection
@@ -27,13 +27,10 @@ type Bot struct {
 //
 // TODO: make this less fucko.
 func New(info config.Info, net config.Network, channels []string, parent chan *irc.Event) (bot *Bot) {
-	bot.IrcObj = irc.IRC(info.Nick, info.User)
-
-	bot.Info = info
-	bot.Network = net
+	bot = &Bot{}
+	bot.Info = &info
+	bot.Network = &net
 	bot.Channels = channels
-
-	bot.IrcObj.UseTLS = net.UseSSL
 
 	bot.parent = parent
 	bot.Signal = make(chan *irc.Event)
@@ -43,6 +40,15 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 		log.LstdFlags,
 	)
 
+	bot.log.Printf("%#v", bot)
+
+	nick := info.Nick
+	user := info.User
+	bot.IrcObj = irc.IRC(nick, user)
+	bot.IrcObj.UseTLS = net.UseSSL
+
+	bot.IrcObj.Log = bot.log
+
 	go func() {
 		bot.log.Printf("Attempting to connect to %s (%s:%d)", bot.Network.Name, bot.Network.Host, bot.Network.Port)
 		err := bot.IrcObj.Connect(fmt.Sprintf("%s:%d", bot.Network.Host, bot.Network.Port))
@@ -50,11 +56,13 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 			bot.log.Fatal(err)
 		}
 
+		bot.log.Println("Identifying to NickServ...")
 		bot.IrcObj.Privmsg("NickServ", "IDENTIFY "+bot.Network.ServicesPass)
 
 		time.Sleep(500 * time.Millisecond)
 
 		for _, channel := range bot.Channels {
+			bot.log.Printf("Joining %s", channel)
 			bot.IrcObj.Join(channel)
 		}
 
@@ -68,9 +76,8 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 		for e := range bot.Signal {
 			switch e.Code {
 			case "PRIVMSG":
+				bot.log.Printf("%s <%s> %s", e.Arguments[0], bot.Info.Nick, e.Arguments[1])
 				bot.IrcObj.Privmsg(e.Arguments[0], e.Arguments[1])
-			case "NOTICE":
-				bot.IrcObj.Notice(e.Arguments[0], e.Arguments[1])
 			}
 		}
 	}()

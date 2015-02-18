@@ -33,4 +33,18 @@ func main() {
 
 		bots = append(bots, mybot)
 	}
+
+	for e := range parent {
+		sendToAllButOne(e)
+	}
+}
+
+func sendToAllButOne(e *irc.Event) {
+	for _, mybot := range bots {
+		if e.Connection == mybot.IrcObj {
+			continue
+		}
+
+		mybot.Signal <- e
+	}
 }

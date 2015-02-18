@@ -64,6 +64,15 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 				bot.parent <- e
 			}()
 		})
+
+		for e := range bot.Signal {
+			switch e.Code {
+			case "PRIVMSG":
+				bot.IrcObj.Privmsg(e.Arguments[0], e.Arguments[1])
+			case "NOTICE":
+				bot.IrcObj.Notice(e.Arguments[0], e.Arguments[1])
+			}
+		}
 	}()
 
 	return

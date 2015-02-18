@@ -1,4 +1,33 @@
-// Package config manages the configuration for macarena.
+/*
+Package config manages the configuration for macarena.
+
+The following is an example configuration file:
+
+        {
+                "networks": [
+                        {
+                                "name": "ShadowNET",
+                                "host": "127.0.0.1",
+                                "port": 5335,
+                                "ssl":  false,
+                                "pass": "foobang"
+                        },
+                        {
+                                "name": "ShadowNET-2",
+                                "host": "127.0.0.1",
+                                "port": 5336,
+                                "ssl":  false,
+                                "pass": "foobang"
+                        }
+                ],
+               "myinfo": {
+                        "nick": "Foobang",
+                        "user": "bar",
+                        "real": "fake info"
+                },
+                "channels": ["#test", "#spam"]
+        }
+*/
 package config
 
 import (

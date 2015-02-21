@@ -25,4 +25,4 @@ _testmain.go
 
 # macarena stuff
 macarena
-config.json
+/config.json

@@ -1,0 +1,24 @@
+{
+	"networks": [
+		{
+			"name": "PonyChat",
+			"host": "irc.ponychat.net",
+			"port": 6697,
+			"ssl":  true,
+			"pass": "foobang"
+		},
+		{
+			"name": "ShadowNET",
+			"host": "irc.yolo-swag.com",
+			"port": 6667,
+			"ssl":  false,
+			"pass": "foobang"
+		}
+	],
+	"myinfo": {
+		"nick": "Macarena",
+		"user": "relay",
+		"real": "IRC Relay bot"
+	},
+	"channels": ["#macarena"]
+}

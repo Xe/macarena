@@ -12,7 +12,7 @@ $ cp $GOPATH/src/github.com/Xe/macarena/config/example.conf.json somewhere.json
 $ macarena -conf somewhere.json
 ```
 
-Please be sure to edit your config. See 
+Please be sure to edit your config. See
 [this](http://godoc.org/github.com/Xe/macarena/config) for help.
 
 Via Docker
@@ -55,8 +55,9 @@ and the configuration:
 }
 ```
 
-The two files in this folder should allow you to make a suitable example 
-deployment. **PLEASE CHANGE THE CHANNEL, NICK, USER, AND NETWORK SETTINGS**.
+The two files in the `example/` folder in the root of this repository should
+allow you to make a suitable example deployment. **PLEASE CHANGE THE CHANNEL,
+NICK, USER, AND NETWORK SETTINGS**.
 
 ### Running
 

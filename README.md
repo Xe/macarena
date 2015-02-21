@@ -15,89 +15,54 @@ $ macarena -conf somewhere.json
 Please be sure to edit your config. See 
 [this](http://godoc.org/github.com/Xe/macarena/config) for help.
 
+Via Docker
+----------
+
+### Files
+
+The dockerfile:
+
+```Dockerfile
+FROM xena/macarena
 ```
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
 
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
+and the configuration:
 
-Macarena tiene un novio que se llama
-Que se llama de apellido Vitorino
-Que en la jura de bandera el muchacho
-Se la dio con dos amigos
+```json
+{
+        "networks": [
+                {
+                        "name": "PonyChat",
+                        "host": "irc.ponychat.net",
+                        "port": 6697,
+                        "ssl":  true,
+                        "pass": "foobang"
+                },
+                {
+                        "name": "ShadowNET",
+                        "host": "irc.yolo-swag.com",
+                        "port": 6667,
+                        "ssl":  false,
+                        "pass": "foobang"
+                }
+        ],
+        "myinfo": {
+                "nick": "Macarena",
+                "user": "relay",
+                "real": "IRC Relay bot"
+        },
+        "channels": ["#macarena"]
+}
+```
 
-Macarena tiene un novio que se llama
-Que se llama de apellido Vitorino
-Y en la jura de bandera el muchacho
-Se la dio con dos amigos
+The two files in this folder should allow you to make a suitable example 
+deployment. **PLEASE CHANGE THE CHANNEL, NICK, USER, AND NETWORK SETTINGS**.
 
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
+### Running
 
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
+Simply run:
 
-Macarena Macarena Macarena
-Que te gustan los veranos de Marbella
-Macarena Macarena Macarena
-Que te gusta la movida guerrillera
-
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
-
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
-
-Macarena suena con el Corte Ingles
-Y se compra los modelos mas modernos
-Le gustaria vivir en Nueva York
-Y ligar un novio nuevo
-
-Macarena suena con el Corte Ingles
-Y se compra los modelos mas modernos
-Le gustaria vivir en Nueva York
-Y ligar un novio nuevo
-
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
-
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
-
-Macarena tiene un novio que se llama
-Que se llama de apellido Vitorino
-Y en la jura de bandera del muchacho
-Se la dio con dos amigos
-
-Macarena tiene un novio que se llama
-Que se llama de apellido Vitorino
-Y en la jura de bandera del muchacho
-Se la dio con dos amigos
-
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
-
-Dale a tu cuerpo alegria Macarena
-Que tu cuerpo es pa' darle alegria y cosa buena
-Dale a tu cuerpo alegria, Macarena
-Hey Macarena
+```console
+$ docker build -t yourbot .
+$ docker run -dit --name yourbot yourbot
 ```

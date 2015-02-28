@@ -73,6 +73,19 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 			}()
 		})
 
+		bot.IrcObj.AddCallback("CTCP_ACTION", func(e *irc.Event) {
+			go func() {
+				bot.parent <- &irc.Event{
+					Code: "PRIVMSG",
+					Nick: e.Nick,
+					Arguments: []string{
+						e.Arguments[0],
+						fmt.Sprintf("* %s", e.Arguments[1]),
+					},
+				}
+			}()
+		})
+
 		for e := range bot.Signal {
 			switch e.Code {
 			case "PRIVMSG":

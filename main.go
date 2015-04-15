@@ -21,7 +21,7 @@ var (
 
 func init() {
 	parent = make(chan *irc.Event)
-	colors = []int{2, 3, 4, 5, 9, 10, 11, 12}
+	colors = []int{2, 3, 4, 5, 7, 9, 10, 11, 12}
 }
 
 func main() {
@@ -59,12 +59,14 @@ func sendToAllButOne(e *irc.Event) {
 			continue
 		}
 
-		mybot.Signal <- &irc.Event{
-			Code: "PRIVMSG",
-			Arguments: []string{
-				e.Arguments[0],
-				fmt.Sprintf("<-%s> %s", hash(e.Nick), e.Arguments[1]),
-			},
+		if mybot.Connected {
+			mybot.Signal <- &irc.Event{
+				Code: "PRIVMSG",
+				Arguments: []string{
+					e.Arguments[0],
+					fmt.Sprintf("{-%s} %s", hash(e.Nick), e.Arguments[1]),
+				},
+			}
 		}
 	}
 }

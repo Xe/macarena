@@ -118,8 +118,9 @@ func (bot *Bot) seed() {
 	bot.IrcObj.AddCallback("CTCP_ACTION", func(e *irc.Event) {
 		go func() {
 			bot.parent <- &irc.Event{
-				Code: "PRIVMSG",
-				Nick: e.Nick,
+				Code:       "PRIVMSG",
+				Connection: e.Connection,
+				Nick:       e.Nick,
 				Arguments: []string{
 					e.Arguments[0],
 					fmt.Sprintf("* %s", e.Arguments[1]),

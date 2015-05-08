@@ -1,0 +1,13 @@
+[Unit]
+Description=Macarena Relay bot
+After=network.target
+
+[Service]
+User=macarena
+ExecStart=/usr/local/bin/macarena
+TimeoutSec=300
+Restart=always
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

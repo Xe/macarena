@@ -1,15 +1,17 @@
 FROM alpine
 
-ENV GOPATH=/go
+ENV GOPATH /go
+ENV DOCKER yes
 
 RUN mkdir /go
 
-RUN apk update && apk add go
+RUN apk update && apk add go ca-certificates
 
 COPY . /go/src/github.com/Xe/macarena
+COPY ./build/run.sh /macarena/run.sh
 
-RUN go build -tags netgo github.com/Xe/macarena/...
+RUN go get github.com/Xe/macarena
 
 ONBUILD COPY config.json /macarena/config.json
 WORKDIR /macarena
-CMD "/go/bin/macarena"
+CMD "/macarena/run.sh"

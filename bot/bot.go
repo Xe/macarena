@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/Xe/macarena/config"
@@ -130,7 +131,12 @@ func (bot *Bot) seed() {
 	})
 
 	bot.IrcObj.AddCallback("PRIVMSG", func(e *irc.Event) {
-		bot.parent <- e
+		if strings.HasPrefix(e.Arguments[0], "#") {
+			bot.parent <- e
+		} else {
+			bot.log.Printf("got private message from %s", e.Nick)
+			bot.IrcObj.Notice(e.Nick, "I do not yet understand commands in PM")
+		}
 	})
 
 	bot.IrcObj.AddCallback("ERROR", func(e *irc.Event) {

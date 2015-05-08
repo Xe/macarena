@@ -18,4 +18,6 @@ Please be sure to edit your config. See
 
 Simply run:
 
-
+```console
+$ ./run.sh
+```

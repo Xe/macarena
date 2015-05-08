@@ -67,3 +67,16 @@ Simply run:
 $ docker build -t yourbot .
 $ docker run -dit --name yourbot yourbot
 ```
+
+Notes
+-----
+
+Macarena does not detach from the active console. As such it is suggested to 
+run macarena inside [dtach](https://github.com/bogner/dtach), screen, tmux, as 
+a service with upstart/systemd, or as a container.
+
+Support
+-------
+
+For help, please connect to `irc.ponychat.net` and join `#macarena`, or open 
+a github issue on [the main repository](https://github.com/Xe/macarena).

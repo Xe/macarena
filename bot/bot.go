@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/Xe/macarena/config"
-	"github.com/thoj/go-ircevent"
+	"github.com/Xe/macarena/external/go-ircevent"
 )
 
 // Bot is the wrapper around ircobj.

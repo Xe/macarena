@@ -42,7 +42,7 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 
 	bot.log = log.New(
 		os.Stdout,
-		fmt.Sprintf("%s (%s) ", bot.Info.Nick, bot.Network.Name),
+		fmt.Sprintf("(%s) ", bot.Network.Name),
 		log.LstdFlags,
 	)
 

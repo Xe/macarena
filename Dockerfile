@@ -1,16 +1,13 @@
-FROM alpine
+FROM golang:1.4.2
 
-ENV GOPATH /go
-ENV DOCKER yes
+RUN go get github.com/constabulary/gb/...
 
-RUN mkdir /go
-
-RUN apk update && apk add go ca-certificates
-
-COPY . /go/src/github.com/Xe/macarena
+COPY . /usr/src/macarena
 COPY ./build/run.sh /macarena/run.sh
 
-RUN go get github.com/Xe/macarena
+RUN cd /usr/src/macarena &&\
+    gb build all &&\
+    cp bin/macarena /macarena/macarena
 
 ONBUILD COPY config.json /macarena/config.json
 WORKDIR /macarena

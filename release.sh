@@ -1,10 +1,13 @@
 #!/bin/bash
 
+set -e
+
 version=$1
 
 if [ -z "$version" ];
 then
 	echo "$0 <version>"
+	exit 1
 fi
 
 echo "Releasing Macarena $version"
@@ -22,14 +25,14 @@ cp ./build/README.md         $dir
 cp ./build/run.sh            $dir
 cp ./build/example.conf.json $dir
 
-godocdown github.com/Xe/macarena/config > $dir/config.md
+godocdown ./src/config > $dir/config.md
 
 echo "  done"
 
 printf "Rebuilding macarena..."
 
-go clean ./...
-go build
+gb build -a -q all
+cp ./bin/macarena $dir
 
 echo " done"
 

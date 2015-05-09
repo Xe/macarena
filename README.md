@@ -75,6 +75,14 @@ Macarena does not detach from the active console. As such it is suggested to
 run macarena inside [dtach](https://github.com/bogner/dtach), screen, tmux, as 
 a service with upstart/systemd, or as a container.
 
+When developing or changing parts of macarena, do this to ensure all code is 
+properly recompiled and relinked:
+
+```console
+$ go clean ./...
+$ go build
+```
+
 Support
 -------
 

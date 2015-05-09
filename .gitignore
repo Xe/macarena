@@ -24,6 +24,7 @@ _testmain.go
 *.prof
 
 # macarena stuff
-macarena
+bin/*
+pkg/*
 /config.json
 build_actual

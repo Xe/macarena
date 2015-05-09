@@ -6,9 +6,10 @@ import (
 	"hash/fnv"
 	"log"
 
-	"github.com/Xe/macarena/bot"
-	"github.com/Xe/macarena/config"
-	"github.com/Xe/macarena/external/go-ircevent"
+	"bot"
+	"config"
+
+	"github.com/thoj/go-ircevent"
 )
 
 var (

@@ -1,14 +1,14 @@
 package bot
 
 import (
+	"config"
 	"fmt"
 	"log"
 	"os"
 	"strings"
 	"time"
 
-	"github.com/Xe/macarena/config"
-	"github.com/Xe/macarena/external/go-ircevent"
+	"github.com/thoj/go-ircevent"
 )
 
 // Bot is the wrapper around ircobj.

@@ -6,14 +6,26 @@ A relay bot for IRC channels spanning many networks.
 Usage
 -----
 
+### From Binary
+
 ```console
-$ go get github.com/Xe/macarena
-$ cp $GOPATH/src/github.com/Xe/macarena/config/example.conf.json somewhere.json
-$ macarena -conf somewhere.json
+$ tar xf downloaded-tarball
+$ cd macarena-$VERSION-linux-amd64
+$ cp example.conf.json config.json
+$ ./run.sh
+```
+
+### From Source
+
+```console
+$ git clone github.com/Xe/macarena
+$ gb build all
+$ cp src/config/example.conf.json somewhere.json
+$ ./bin/macarena -conf somewhere.json
 ```
 
 Please be sure to edit your config. See
-[this](http://godoc.org/github.com/Xe/macarena/config) for help.
+[this](http://godoc.org/github.com/Xe/macarena/src/config) for help.
 
 Via Docker
 ----------

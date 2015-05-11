@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /macarena
+
 if ! [ -e ./config.json ]
 then
 	echo "Please read the readme, you need a config."

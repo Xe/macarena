@@ -13,7 +13,8 @@ import (
 )
 
 var (
-	cfgFname = flag.String("conf", "./config.json", "config file to use")
+	cfgFname  = flag.String("conf", "./config.json", "config file to use")
+	debugFlag = flag.Bool("debug", false, "use debug mode?")
 
 	parent chan *irc.Event
 	bots   []*bot.Bot
@@ -35,6 +36,8 @@ func main() {
 
 	for _, net := range cfg.Networks {
 		mybot := bot.New(cfg.MyInfo, net, cfg.Channels, parent)
+
+		mybot.IrcObj.Debug = *debugFlag
 
 		bots = append(bots, mybot)
 	}

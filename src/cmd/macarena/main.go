@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"hash/fnv"
 	"log"
+	"os"
 
 	"bot"
 	"config"
@@ -24,6 +25,12 @@ var (
 func init() {
 	parent = make(chan *irc.Event)
 	colors = []int{2, 3, 4, 5, 7, 9, 10, 11, 12}
+
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "%s version %s:\n", os.Args[0], version)
+		flag.PrintDefaults()
+		os.Exit(2)
+	}
 }
 
 func main() {

@@ -24,6 +24,12 @@ $ cp src/config/example.conf.json somewhere.json
 $ ./bin/macarena -conf somewhere.json
 ```
 
+#### Without `gb`
+
+```console
+$ ./build.sh
+```
+
 Please be sure to edit your config. See
 [this](http://godoc.org/github.com/Xe/macarena/src/config) for help.
 

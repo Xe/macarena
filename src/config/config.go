@@ -115,5 +115,5 @@ func (i Info) Validate() bool {
 
 // Validate validates information about a Network.
 func (n Network) Validate() bool {
-	return n.Name != "" && n.Host != "" && n.Port != 0 && n.ServicesPass != ""
+	return n.Name != "" && n.Host != "" && n.Port != 0
 }

@@ -318,13 +318,13 @@ func (irc *Connection) Disconnect() {
 // Reconnect to a server using the current connection.
 func (irc *Connection) Reconnect() error {
 	irc.end = make(chan struct{})
-	return irc.Connect(irc.Server)
+	return irc.Connect(irc.Server, irc.BindHost)
 }
 
 // Connect to a given server using the current connection configuration.
 // This function also takes care of identification if a password is provided.
 // RFC 1459 details: https://tools.ietf.org/html/rfc1459#section-4.1
-func (irc *Connection) Connect(server string) error {
+func (irc *Connection) Connect(server string, bindhost string) error {
 	irc.Server = server
 	irc.stopped = false
 
@@ -360,11 +360,31 @@ func (irc *Connection) Connect(server string) error {
 		return errors.New("empty 'user'")
 	}
 
+	addr, err := hasLocalAddr(bindhost)
+
+	if err != nil && bindhost != "" {
+		return err
+	}
+
 	if irc.UseTLS {
 		dialer := &net.Dialer{Timeout: irc.Timeout}
+		if bindhost != "" {
+			dialer = &net.Dialer{
+				Timeout:   irc.Timeout,
+				LocalAddr: addr,
+			}
+		}
 		irc.socket, err = tls.DialWithDialer(dialer, "tcp", irc.Server, irc.TLSConfig)
 	} else {
-		irc.socket, err = net.DialTimeout("tcp", irc.Server, irc.Timeout)
+		dialer := &net.Dialer{Timeout: irc.Timeout}
+		if bindhost != "" {
+			dialer = &net.Dialer{
+				Timeout:   irc.Timeout,
+				LocalAddr: addr,
+			}
+		}
+
+		irc.socket, err = dialer.Dial("tcp", irc.Server)
 	}
 	if err != nil {
 		return err

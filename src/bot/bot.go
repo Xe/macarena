@@ -75,7 +75,7 @@ func (bot Bot) connect() *irc.Connection {
 	irco.Log = bot.log
 
 	bot.log.Printf("Attempting to connect to %s (%s:%d)", bot.Network.Name, bot.Network.Host, bot.Network.Port)
-	err := irco.Connect(fmt.Sprintf("%s:%d", bot.Network.Host, bot.Network.Port))
+	err := irco.Connect(fmt.Sprintf("%s:%d", bot.Network.Host, bot.Network.Port), bot.Network.BindHost)
 	if err != nil {
 		bot.log.Fatal(err)
 	}

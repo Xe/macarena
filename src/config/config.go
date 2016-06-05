@@ -17,7 +17,8 @@ The following is an example configuration file:
                                 "host": "127.0.0.1",
                                 "port": 5336,
                                 "ssl":  false,
-                                "pass": "foobang"
+                                "pass": "foobang",
+                                "bindhost": "127.0.0.2"
                         }
                 ],
                "myinfo": {
@@ -25,7 +26,8 @@ The following is an example configuration file:
                         "user": "bar",
                         "real": "fake info"
                 },
-                "channels": ["#test", "#spam"]
+                "channels": ["#test", "#spam"],
+                "notify_connections": true
         }
 */
 package config
@@ -47,18 +49,20 @@ type Validator interface {
 // Config manages the configuration for macarena. It is a container for the
 // various data users may want to configure.
 type Config struct {
-	Networks []Network `json:"networks"` // Networks to connect to
-	MyInfo   Info      `json:"myinfo"`   // Information about the bot
-	Channels []string  `json:"channels"` // Channels to relay
+	Networks          []Network `json:"networks"`           // Networks to connect to
+	MyInfo            Info      `json:"myinfo"`             // Information about the bot
+	Channels          []string  `json:"channels"`           // Channels to relay
+	NotifyConnections bool      `json:"notify_connections"` // Notify all channels on connection status change?
 }
 
 // Network is a container representing an IRC network.
 type Network struct {
-	Name         string `json:"name"` // Name of network for logging
-	Host         string `json:"host"` // Hostname of server to connect to
-	Port         int    `json:"port"` // Port of server to connect to
-	UseSSL       bool   `json:"ssl"`  // Use SSL?
-	ServicesPass string `json:"pass"` // Services password (/ns IDENTIFY)
+	Name         string `json:"name"`     // Name of network for logging
+	Host         string `json:"host"`     // Hostname of server to connect to
+	Port         int    `json:"port"`     // Port of server to connect to
+	UseSSL       bool   `json:"ssl"`      // Use SSL?
+	ServicesPass string `json:"pass"`     // Services password (/ns IDENTIFY)
+	BindHost     string `json:"bindhost"` // what IP to dial out as
 }
 
 // Info is info about the bot.

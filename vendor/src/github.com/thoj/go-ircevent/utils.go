@@ -2,7 +2,6 @@ package irc
 
 import (
 	"errors"
-	"log"
 	"net"
 )
 
@@ -17,9 +16,6 @@ func hasLocalAddr(inp string) (net.Addr, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		log.Println(netw.String())
-		log.Println(netw.Network())
 
 		if netw.Contains(net.ParseIP(inp)) {
 			_, err := net.ResolveIPAddr("ip", inp)

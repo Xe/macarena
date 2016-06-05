@@ -59,6 +59,7 @@ type Network struct {
 	Name         string `json:"name"`     // Name of network for logging
 	Host         string `json:"host"`     // Hostname of server to connect to
 	Port         int    `json:"port"`     // Port of server to connect to
+	ServerPass   string `json:"serverpass"` // Server password
 	UseSSL       bool   `json:"ssl"`      // Use SSL?
 	ServicesPass string `json:"pass"`     // Services password (/ns IDENTIFY)
 	BindHost     string `json:"bindhost"` // what IP to dial out as

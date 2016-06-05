@@ -49,10 +49,9 @@ type Validator interface {
 // Config manages the configuration for macarena. It is a container for the
 // various data users may want to configure.
 type Config struct {
-	Networks          []Network `json:"networks"`           // Networks to connect to
-	MyInfo            Info      `json:"myinfo"`             // Information about the bot
-	Channels          []string  `json:"channels"`           // Channels to relay
-	NotifyConnections bool      `json:"notify_connections"` // Notify all channels on connection status change?
+	Networks []Network `json:"networks"` // Networks to connect to
+	MyInfo   Info      `json:"myinfo"`   // Information about the bot
+	Channels []string  `json:"channels"` // Channels to relay
 }
 
 // Network is a container representing an IRC network.
@@ -67,9 +66,10 @@ type Network struct {
 
 // Info is info about the bot.
 type Info struct {
-	Nick  string `json:"nick"` // Nickname of bot
-	User  string `json:"user"` // Username of bot
-	Gecos string `json:"real"` // Realname of bot
+	Nick              string `json:"nick"`               // Nickname of bot
+	User              string `json:"user"`               // Username of bot
+	Gecos             string `json:"real"`               // Realname of bot
+	NotifyConnections bool   `json:"notify_connections"` // Notify all channels on connection status change?
 }
 
 // LoadFile wraps Load with opening and closing a file.

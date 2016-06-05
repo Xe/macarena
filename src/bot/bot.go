@@ -93,16 +93,18 @@ func (bot *Bot) seed() {
 		bot.log.Println("Identifying to NickServ...")
 		bot.IrcObj.Privmsg("NickServ", "IDENTIFY "+bot.Network.ServicesPass)
 
-		for _, ch := range bot.Channels {
-			bot.parent <- &irc.Event{
-				Code: "PRIVMSG",
-				Arguments: []string{
-					ch,
-					fmt.Sprintf(
-						"I have connected to %s!",
-						bot.Network.Name,
-					),
-				},
+		if bot.Info.NotifyConnections {
+			for _, ch := range bot.Channels {
+				bot.parent <- &irc.Event{
+					Code: "PRIVMSG",
+					Arguments: []string{
+						ch,
+						fmt.Sprintf(
+							"I have connected to %s!",
+							bot.Network.Name,
+						),
+					},
+				}
 			}
 		}
 
@@ -144,17 +146,19 @@ func (bot *Bot) seed() {
 
 		bot.Connected = false
 
-		for _, ch := range bot.Channels {
-			bot.parent <- &irc.Event{
-				Code: "PRIVMSG",
-				Arguments: []string{
-					ch,
-					fmt.Sprintf(
-						"I was just killed off of %s! %s",
-						bot.Network.Name,
-						e.Raw,
-					),
-				},
+		if bot.Info.NotifyConnections {
+			for _, ch := range bot.Channels {
+				bot.parent <- &irc.Event{
+					Code: "PRIVMSG",
+					Arguments: []string{
+						ch,
+						fmt.Sprintf(
+							"I was just killed off of %s! %s",
+							bot.Network.Name,
+							e.Raw,
+						),
+					},
+				}
 			}
 		}
 

@@ -71,6 +71,7 @@ func New(info config.Info, net config.Network, channels []string, parent chan *i
 func (bot Bot) connect() *irc.Connection {
 	irco := irc.IRC(bot.nick, bot.user)
 	irco.UseTLS = bot.Network.UseSSL
+	irco.Password = bot.Network.ServerPass
 
 	irco.Log = bot.log
 

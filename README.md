@@ -24,7 +24,7 @@ $ cp src/config/example.conf.json somewhere.json
 $ ./bin/macarena -conf somewhere.json
 ```
 
-#### Without `gb`
+#### Without [`gb`](https://getgb.io)
 
 ```console
 $ ./build.sh
@@ -58,16 +58,18 @@ and the configuration:
                 },
                 {
                         "name": "ShadowNET",
-                        "host": "irc.yolo-swag.com",
+                        "host": "172.17.0.10",
                         "port": 6667,
                         "ssl":  false,
-                        "pass": "foobang"
+                        "pass": "foobang",
+                        "bindhost": "172.17.0.1"
                 }
         ],
         "myinfo": {
                 "nick": "Macarena",
                 "user": "relay",
-                "real": "IRC Relay bot"
+                "real": "IRC Relay bot",
+                "notify_connections": true
         },
         "channels": ["#macarena"]
 }
@@ -89,15 +91,15 @@ $ docker run -dit --name yourbot yourbot
 Notes
 -----
 
-Macarena does not detach from the active console. As such it is suggested to 
-run macarena inside [dtach](https://github.com/bogner/dtach), screen, tmux, as 
+Macarena does not detach from the active console. As such it is suggested to
+run macarena inside [dtach](https://github.com/bogner/dtach), screen, tmux, as
 a service with upstart/systemd, or as a container.
 
-Please use [`gb`](http://getgb.io/) for building macarena. Please ensure all 
+Please use [`gb`](http://getgb.io/) for building macarena. Please ensure all
 code passes a build before pull requesting.
 
 Support
 -------
 
-For help, please connect to `irc.ponychat.net` and join `#macarena`, or open 
+For help, please connect to `irc.ponychat.net` and join `#macarena`, or open
 a github issue on [the main repository](https://github.com/Xe/macarena).
